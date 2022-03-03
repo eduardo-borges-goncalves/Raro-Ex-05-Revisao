@@ -21,7 +21,7 @@ export async function zerarAquivo(): Promise<void> {
   return escreveArquivo('');
 }
 
-export function leArquivo(): Promise<string> {
+export async function leArquivo(): Promise<string> {
 
   return new Promise ((resolve, reject) => {
       readFile(ARQUIVO_DE_FILA, function(err, data) {
@@ -43,7 +43,10 @@ export async function escreveArquivo(texto: string): Promise<void> {
 } 
 
 export async function escreveNaFila(texto: string): Promise<void> {
-    leArquivo()
+
+  
+
+   await leArquivo()
     .then(textoAtual => { 
       console.log('texto encontrado anteriormente no arquivo', textoAtual);
       const novoTexto = textoAtual ? `${textoAtual}\n${texto}` : texto;
