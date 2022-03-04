@@ -28,7 +28,7 @@ function testChunk() {
 function testCompact() {
   const items = [0, 1, false, 2, '', 3, null, undefined, '0'];
   const original = [...items];
-  const expected = [1, 2, 3, '0'];
+  const expected = [1, 2, 3, '0']; 
   
   // chamada ao método.
   const resultado = compact(items);
@@ -76,11 +76,11 @@ function testUniq() {
   const resultadoCorreto = expected.every((item, index) => item === resultado[index]);
   console.assert(naoAlterados, 'array original não pode ser alterado');
   console.assert(resultadoCorreto, 'todos os objetos esperados devem estar presentes');
-}  
+}
 
 async function testFila() {
-  await zerarAquivo();  
-  const mensagens = [     
+  await zerarAquivo();
+  const mensagens = [
     'Lorem ipsum dolor sit amet',
     'consectetur adipiscing elit',
     'Quisque scelerisque pulvinar lacus',
@@ -91,23 +91,22 @@ async function testFila() {
     'Suspendisse porttitor sed felis sit amet molestie',
     'In sit amet gravida quam',
     'Nulla vitae nisl a nibh luctus tincidunt',
-  ]; 
+  ];
 
   for (const mensagem of mensagens) {
     await escreveNaFila(mensagem);
   }
 
-  // const mensagensEscritas = await leArquivo(() => {});
-  // const todasMensagensEscritas = mensagensEscritas
-  //   .split('\n')
-  //   .every((mensagem, index) => mensagem === mensagens[index]);
+  const mensagensEscritas = await leArquivo();
+  const todasMensagensEscritas = mensagensEscritas
+    .split('\n')
+    .every((mensagem, index) => mensagem === mensagens[index]);
 
-  // console.assert(todasMensagensEscritas, 'todas as mensagens devem ser escritas');
-  // for (const menssagem of mensagens) {
-  //   const encontrada = await consumirDaFila();
-  //   console.log(encontrada);
-  //   console.assert(encontrada === menssagem, 'mensagem esperada não encontrada');
-  // }
+  console.assert(todasMensagensEscritas, 'todas as mensagens devem ser escritas');
+  for (const mensagem of mensagens) {
+     const encontrada = await consumirDaFila();
+     console.assert(encontrada === mensagem,'mensagem esperada não encontrada');
+  }
 }
 
 testChunk();
@@ -115,3 +114,5 @@ testCompact();
 testFromPairs();
 testUniq();
 testFila();
+
+
